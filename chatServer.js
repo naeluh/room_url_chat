@@ -91,6 +91,8 @@ var sendBroadcast = function(text) {
     logger.emit('newEvent', 'newBroadcastMessage', {'msg':text});
 };
 
+var room = $('#chat_permalink').val();
+
 // ***************************************************************************
 // Express routes
 // ***************************************************************************
@@ -101,10 +103,10 @@ app.get('/', function(req, res) {
 });
 
 // Broadcast message to all connected users
-app.post('/api/broadcast/', requireAuthentication, sanitizeMessage, function(req, res) {
+/*app.post('/api/broadcast/', requireAuthentication, sanitizeMessage, function(req, res) {
     sendBroadcast(req.sanitizedMessage);
     res.send(201, "Message sent to all rooms");
-});
+});*/
 
 // ***************************************************************************
 // Socket.io events

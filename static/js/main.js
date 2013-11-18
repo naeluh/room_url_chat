@@ -59,7 +59,7 @@
         }
                         console.log('subscriptionConfirmed 1 '+data.room);
         // Close modal if opened
-        $('#modal_joinroom').modal('hide');
+        //$('#modal_joinroom').modal('hide');
     });
 
     // Unsubscription to room confirmed
@@ -298,7 +298,15 @@
     });
 
     // Join new room
-    $('#b_join_room').click(function (eventObject,room,data) {
+    /*$('#b_join_room').click(function (eventObject,room,data) {
+        eventObject.preventDefault();
+        socket.emit('subscribe', {'rooms':[getRoomName()] });
+        //console.log('Joinroom: %s', JSON.stringify(data));
+
+    });*/
+
+      // Join new room
+    $('#join_button').click(function (eventObject,room,data) {
         eventObject.preventDefault();
         socket.emit('subscribe', {'rooms':[getRoomName()] });
         //console.log('Joinroom: %s', JSON.stringify(data));
