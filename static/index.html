@@ -15,11 +15,28 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.1.min.js"><\/script>')</script>
+        <!--
         <script src="js/vendor/underscore-min.js"></script>
         <script src="js/vendor/backbone.js"></script>
         <script src="js/vendor/handlebars-1.0.rc.1.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="js/main.js"></script>
+        -->
+        <script type="text/javascript">
+        $(function(){
+
+           $('#join_button').on('click' , function() {
+
+           $channel = $('#chat_channel').val();
+           $url = '/chat.html#' + $channel;
+           $win = window.open($url);
+           console.log($url);
+
+           });
+
+         });
+        </script>
+
         </head>
         <body>
           <form accept-charset="UTF-8" action="/" class="new_chat" data-remote="true" id="chat-form" method="post">
@@ -28,10 +45,10 @@
             </div>
             <span class="domain">chat/</span>
             <div>
-            <input class="input-text" id="chat_permalink" name="chat[permalink]" placeholder="enter channel" size="30" spellcheck="false" type="text">
+            <input class="input-text" id="chat_channel" name="chat_channel" placeholder="enter channel" size="30" spellcheck="false" type="text">
             </div>
             <div>
-            <input class="input-text" id="chat_user" name="chat[user]" placeholder="enter username" size="30" spellcheck="false" type="text">
+            <input class="input-text" id="chat_user" name="chat_user" placeholder="enter username" size="30" spellcheck="false" type="text">
             </div>
              <!-- <a href="#" class="button join_button" id="join_button" name="button" type="submit">Join</a>
            <div id="UploadBox">

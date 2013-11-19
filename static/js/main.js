@@ -1,12 +1,14 @@
 (function(){
 
+    //
+
     var debug = false;
 
     // ***************************************************************************
     // Socket.io events
     // ***************************************************************************
 
-    var socket = io.connect('http://hulea.org:8883');
+    var socket = io.connect('http://hulea.org:8876');
 
     // Connection established
     socket.on('connected', function (data) {
@@ -167,9 +169,9 @@
     var addRoom = function(room) {
 
 
-            var url = '#'+room;
-            var win = window.open(url, '_blank');
-            console.log(url);
+            //var url = '#'+room;
+            //var win = window.open(url, '_blank');
+           // console.log(url);
 
             getTemplate('js/templates/room.handlebars', function(template) {
             $(win.document.body).append(template({'room':room}));

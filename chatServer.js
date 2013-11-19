@@ -6,7 +6,7 @@
 // ***************************************************************************
 
 var conf = {
-    port: 8883,
+    port: 8876,
     debug: false,
     dbPort: 6379,
     dbHost: '127.0.0.1',
@@ -104,32 +104,50 @@ app.post('/api/broadcast/', requireAuthentication, sanitizeMessage, function(req
     res.send(201, "Message sent to all rooms");
 });
 
+   app.post('/', function(req, res){
+    var channel = req.param('chat_channel');
+    var user = req.param('chat_user');
+       console.log('channel: '+channel,'user: '+user);
+    });
+
+
+
+
+
+
 // ***************************************************************************
 // Socket.io events
 // ***************************************************************************
 
 io.sockets.on('connection', function(socket) {
 
+    var channel;
+    var user;
+
     // Welcome message on connection
     socket.emit('connected', 'Welcome to the chat server');
+    console.log('channel: '+channel,'user: '+user);
     logger.emit('newEvent', 'userConnected', {'socket':socket.id});
 
     // Store user data in db
     db.hset([socket.id, 'connectionDate', new Date()], redis.print);
     db.hset([socket.id, 'socketID', socket.id], redis.print);
-    db.hset([socket.id, 'username', 'anonymous'], redis.print);
+    db.hset([socket.id, 'username', user], redis.print);
+    db.hset([socket.id, 'channel', channel], redis.print);
 
-    // Join user to 'MainRoom'
-    socket.join(conf.mainroom);
-    logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'room':conf.mainroom});
-    // Confirm subscription to user
-    socket.emit('subscriptionConfirmed', {'room':conf.mainroom});
-    // Notify subscription to all users in room
-    var data = {'room':conf.mainroom, 'username':'anonymous', 'msg':'----- Joined the room -----', 'id':socket.id};
-    io.sockets.in(conf.mainroom).emit('userJoinsRoom', data);
 
     // User wants to subscribe to [data.rooms]
     socket.on('subscribe', function(data) {
+
+    // Join user to 'MainRoom'
+    console.log('channel: '+channel,'user: '+user);
+    socket.join(channel);
+    logger.emit('newEvent', 'userJoinsRoom', {'socket':socket.id, 'room':channel});
+    // Confirm subscription to user
+    socket.emit('subscriptionConfirmed', {'room':channel});
+    // Notify subscription to all users in room
+    var data = {'room':channel, 'username':'anonymous', 'msg':'----- Joined the room -----', 'id':socket.id};
+    io.sockets.in(channel).emit('userJoinsRoom', data);
         // Get user info from db
         db.hget([socket.id, 'username'], function(err, username) {
 
@@ -156,7 +174,7 @@ io.sockets.on('connection', function(socket) {
 
             // Unsubscribe user from chosen rooms
             _.each(data.rooms, function(room) {
-                if (room != conf.mainroom) {
+                if (room != channel) {
                     socket.leave(room);
                     logger.emit('newEvent', 'userLeavesRoom', {'socket':socket.id, 'username':username, 'room':room});
 
