@@ -12,6 +12,14 @@
       <html class="no-js">
         <!--<![endif]-->
         <head>
+        <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.1.min.js"><\/script>')</script>
+        <script src="js/vendor/underscore-min.js"></script>
+        <script src="js/vendor/backbone.js"></script>
+        <script src="js/vendor/handlebars-1.0.rc.1.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/main.js"></script>
         </head>
         <body>
           <form accept-charset="UTF-8" action="/" class="new_chat" data-remote="true" id="chat-form" method="post">
@@ -25,20 +33,16 @@
             <div>
             <input class="input-text" id="chat_user" name="chat[user]" placeholder="enter username" size="30" spellcheck="false" type="text">
             </div>
-            <!-- <div id="UploadBox">
+             <!-- <a href="#" class="button join_button" id="join_button" name="button" type="submit">Join</a>
+           <div id="UploadBox">
                 <span id='UploadArea'>
                 <label for="FileBox">Choose A File: </label><input type="file" id="FileBox">
                 <button type='button' id='UploadButton' class='Button'>Upload</button>
                 </span>
-              </div>
-            -->
+              </div>-->
+
+
           <button class="button join_button" id="join_button" name="button" type="submit">Join</button>
           </form>
-          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-          <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.1.min.js"><\/script>')</script>
-          <script src="js/vendor/underscore-min.js"></script>
-          <script src="js/vendor/handlebars-1.0.rc.1.js"></script>
-          <script src="/socket.io/socket.io.js"></script>
-          <script src="js/main.js"></script>
         </body>
       </html>
